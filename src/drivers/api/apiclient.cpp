@@ -7,6 +7,7 @@ ApiClient* ApiClient::instance = nullptr;
 ApiClient& ApiClient::getInstance() {
     if (instance == nullptr) {
         instance = new ApiClient();
+        instance->wifiClient.setInsecure();
     }
     return *instance;
 }

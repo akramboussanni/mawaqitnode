@@ -10,6 +10,7 @@
 Timezone tz;
 
 void initTime() {
+    waitForSync();
     tz.setLocation(getTimezone());
 }
 
@@ -23,18 +24,22 @@ String getFullTime() {
 
 String getTimezone() {
     String response;
-    if (ApiClient::getInstance().get("http://worldtimeapi.org/api/ip", response)) {
-        StaticJsonDocument<512> doc;
+    if (ApiClient::getInstance().get("https://worldtimeapi.org/api/ip", response)) {
+        StaticJsonDocument<2048> doc;
         DeserializationError error = deserializeJson(doc, response);
 
         if (error) {
-            return "err while deserializing tz info";
+            Serial.println("err while deserializing tz info");
+            Serial.print("response: ");
+            Serial.println(response);
+            return "";
         }
 
         return doc["timezone"];
     }
 
-    return "err while fetching tz info";
+    Serial.println("err while fetching tz info");
+    return "";
 }
 
 time_t parseIso8601(const String& iso) {
@@ -52,11 +57,11 @@ time_t parseIso8601(const String& iso) {
   tm.Hour = hour;
   tm.Minute = minute;
   tm.Second = second;
-
+  
   return makeTime(tm);
 }
 
 void localizeTime(const time_t& time, char* outBuf, size_t len) {
-    time_t local = tz.tzTime(time);
+    time_t local = tz.tzTime(time, UTC_TIME);
     snprintf(outBuf, len, "%02d:%02d", hour(local), minute(local));
 }

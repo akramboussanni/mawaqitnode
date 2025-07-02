@@ -9,16 +9,6 @@
 
 void connect();
 
-void connect() {
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.print("connecting to wifi...");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("\nwifi connected successfully");
-}
-
 void setup() {
   Serial.begin(115200);
   delay(1000);
@@ -33,4 +23,14 @@ void setup() {
 void loop() {
   showPrayerTimes(getPrayerTimes(), getTime().c_str());
   delay(1000);
+}
+
+void connect() {
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("connecting to wifi...");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nwifi connected successfully");
 }

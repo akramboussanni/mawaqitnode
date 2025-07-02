@@ -1,4 +1,4 @@
-#include <WiFi.h>
+#include <WiFiClientSecure.h>
 #include <HTTPClient.h>
 
 class ApiClient {
@@ -14,6 +14,6 @@ private:
 
     static ApiClient* instance;
 
-    WiFiClient wifiClient;
+    WiFiClientSecure wifiClient;
     HTTPClient http;
 };

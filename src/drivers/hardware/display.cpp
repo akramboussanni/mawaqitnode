@@ -15,7 +15,6 @@ void initDisplay() {
   display.setTextColor(SSD1306_WHITE);
   display.setTextSize(1);
   display.setCursor(0, 0);
-  display.println(F("Display Ready"));
   display.display();
 }
 
@@ -34,4 +33,8 @@ void showPrayerTimes(const prayerTimes& times, const char* currentTime) {
   display.print(currentTime);
 
   display.display();
+}
+
+void showAlarm() {
+  
 }
