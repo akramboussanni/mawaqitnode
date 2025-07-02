@@ -12,6 +12,11 @@ Timezone tz;
 void initTime() {
     waitForSync();
     tz.setLocation(getTimezone());
+    tz.setDefault();
+}
+
+bool isMidnight() {
+    return tz.hour() == 0;
 }
 
 String getTime() {
@@ -61,7 +66,7 @@ time_t parseIso8601(const String& iso) {
   return makeTime(tm);
 }
 
-void localizeTime(const time_t& time, char* outBuf, size_t len) {
+String localizeTime(const time_t& time) {
     time_t local = tz.tzTime(time, UTC_TIME);
-    snprintf(outBuf, len, "%02d:%02d", hour(local), minute(local));
+    return String(hour(local)) + ":" + (minute(local) < 10 ? "0" : "") + String(minute(local));
 }

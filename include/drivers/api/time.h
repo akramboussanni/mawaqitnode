@@ -7,8 +7,9 @@ extern String tzName;
 extern Timezone tz;
 
 void initTime();
+bool isMidnight();
 String getTime();
 String getFullTime();
 String getTimezone();
 time_t parseIso8601(const String& iso);
-void localizeTime(const time_t& time, char* outBuf, size_t len);
+String localizeTime(const time_t& time);

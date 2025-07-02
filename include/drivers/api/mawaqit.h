@@ -3,18 +3,18 @@
 
 #include <Arduino.h>
 
-static const int prayerTimeSize = 6;
-
 typedef struct prayerTimes {
-    char fajr[prayerTimeSize];
-    char dhuhr[prayerTimeSize];
-    char asr[prayerTimeSize];
-    char maghreb[prayerTimeSize];
-    char isha[prayerTimeSize];
-    char shuruq[prayerTimeSize];
+    String fajr;
+    String dhuhr;
+    String asr;
+    String maghreb;
+    String isha;
+    String shuruq;
 } prayerTimes;
 
+
 void initMawaqit();
-prayerTimes getPrayerTimes();
+prayerTimes* getPrayerTimes();
+bool isPrayerTime(String current, const prayerTimes& times);
 
 #endif
