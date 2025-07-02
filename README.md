@@ -3,7 +3,7 @@ Embedded MAWAQIT app for microcontrollers. Automatically get the most accurate p
 
 ## Example
 The below example uses both OLED screen + passive speaker.
-![esp32 example](static/setup.png)
+![esp32 example](static/setup.jpg)
 
 ## Setup
 ### 1. Setup the circuit
