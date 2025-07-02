@@ -1,12 +1,18 @@
 #include <Arduino.h>
 #include <config.h>
 
+bool isInit = false;
 void initSpeaker() {
-    ledcSetup(0, 2000, 8);
-    ledcAttachPin(SPEAKER_PIN, 0);
+  isInit = true;
+  ledcSetup(0, 2000, 8);
+  ledcAttachPin(SPEAKER_PIN, 0);
 }
 
 void playSound() {
+  if (!isInit) {
+    return;
+  }
+
   const int melody[] = { 440, 494, 523, 440, 0 }; 
   const int noteDuration = 300;
 

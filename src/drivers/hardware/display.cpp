@@ -7,8 +7,10 @@
 
 TwoWire displayWire = TwoWire(0);
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &displayWire, -1);
+bool isInit = false;
 
 void initDisplay() {
+  isInit = true;
   displayWire.begin(SDA_PIN, SCL_PIN);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.clearDisplay();
@@ -19,6 +21,10 @@ void initDisplay() {
 }
 
 void showPrayerTimes(const prayerTimes& times, String currentTime) {
+  if (!isInit) {
+    return;
+  }
+
   display.clearDisplay();
   display.setCursor(0, 0);
 
@@ -43,6 +49,10 @@ void showPrayerTimes(const prayerTimes& times, String currentTime) {
 }
 
 void showAlarm(String timeStr) {
+  if (!isInit) {
+    return;
+  }
+
   display.clearDisplay();
 
   display.setTextSize(1);

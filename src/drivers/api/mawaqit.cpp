@@ -40,7 +40,7 @@ prayerTimes getPrayerTimes() {
         }
 
         Serial.println(parseIso8601(doc["fajr"] | ""));
-        // Use localizeTime returning String now
+
         times.fajr    = localizeTime(parseIso8601(doc["fajr"] | ""));
         times.dhuhr   = localizeTime(parseIso8601(doc["dhuhr"] | ""));
         times.asr     = localizeTime(parseIso8601(doc["asr"] | ""));

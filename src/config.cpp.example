@@ -10,4 +10,10 @@ const int SCREEN_HEIGHT = 64;
 const char WIFI_SSID[] = "yourSSID";
 const char WIFI_PASSWORD[] = "yourPASS";
 
-const char MASJID_ID[] = "cio-gatineau";
+// If you don't know how to get this, search up your local mosque + mawaqit on google
+// For example, "quebec mosque mawaqit". Then open it and look at the url:
+// https://mawaqit.net/en/m/icq
+//                          ^^^
+//                          id
+// this here is your id, so my mosque id would be "icq".
+const char MASJID_ID[] = "icq";

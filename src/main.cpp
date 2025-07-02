@@ -20,6 +20,7 @@ void setup() {
 
   initTime();
   initMawaqit();
+  // Remove the following 2 lines as you wish to disable features.
   initDisplay();
   initSpeaker();
 
