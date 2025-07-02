@@ -2,6 +2,7 @@
 Embedded MAWAQIT app for microcontrollers.
 
 ## Features
+*an issue is currently present where prayer times are not cached at all, and are loaded per minute. it will be fixed later :)
 - Supports piezo speaker + OLED screen natively. These features are implemented in driver files to make it easy to add/modify for your own components.
 - Config + modular code (disable piezo, oled, etc. before build)
 
