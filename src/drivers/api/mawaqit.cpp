@@ -12,9 +12,24 @@ char url[128];
 void initMawaqit() {
     sprintf(url, "https://mrie.dev/api/v2/prayertimes/%s", MASJID_ID);
 }
-prayerTimes* getPrayerTimes() {
+String addOneMinute(const String& timeStr) {
+    int hour = timeStr.substring(0, 2).toInt();
+    int minute = timeStr.substring(3, 5).toInt();
+
+    minute += 1;
+    if (minute >= 60) {
+        minute = 0;
+        hour = (hour + 1) % 24;
+    }
+
+    char buf[6];
+    sprintf(buf, "%02d:%02d", hour, minute);
+    return String(buf);
+}
+
+prayerTimes getPrayerTimes() {
     String response;
-    prayerTimes* times = new prayerTimes();
+    prayerTimes times = {};
 
     if (ApiClient::getInstance().get(url, response)) {
         StaticJsonDocument<512> doc;
@@ -24,13 +39,14 @@ prayerTimes* getPrayerTimes() {
             return times;
         }
 
+        Serial.println(parseIso8601(doc["fajr"] | ""));
         // Use localizeTime returning String now
-        times->fajr    = localizeTime(parseIso8601(doc["fajr"] | ""));
-        times->dhuhr   = localizeTime(parseIso8601(doc["dhuhr"] | ""));
-        times->asr     = localizeTime(parseIso8601(doc["asr"] | ""));
-        times->maghreb = localizeTime(parseIso8601(doc["maghreb"] | ""));
-        times->isha    = localizeTime(parseIso8601(doc["isha"] | ""));
-        times->shuruq  = localizeTime(parseIso8601(doc["shuruq"] | ""));
+        times.fajr    = localizeTime(parseIso8601(doc["fajr"] | ""));
+        times.dhuhr   = localizeTime(parseIso8601(doc["dhuhr"] | ""));
+        times.asr     = localizeTime(parseIso8601(doc["asr"] | ""));
+        times.maghreb = localizeTime(parseIso8601(doc["maghreb"] | ""));
+        times.isha    = localizeTime(parseIso8601(doc["isha"] | ""));
+        times.shuruq  = localizeTime(parseIso8601(doc["shuruq"] | ""));
     } else {
         Serial.print("err getting from mawaqit api @ ");
         Serial.println(url);
@@ -40,10 +56,7 @@ prayerTimes* getPrayerTimes() {
 }
 
 bool isPrayerTime(String current, const prayerTimes& times) {
-    // Convert current C-string to String for safe comparison
-
     return (current == times.fajr) ||
-           (current == times.shuruq) ||
            (current == times.dhuhr) ||
            (current == times.asr) ||
            (current == times.maghreb) ||

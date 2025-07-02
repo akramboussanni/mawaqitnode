@@ -23,10 +23,6 @@ String getTime() {
     return tz.dateTime("H:i");
 }
 
-String getFullTime() {
-    return tz.dateTime("H:i:s");
-}
-
 String getTimezone() {
     String response;
     if (ApiClient::getInstance().get("https://worldtimeapi.org/api/ip", response)) {
@@ -67,6 +63,15 @@ time_t parseIso8601(const String& iso) {
 }
 
 String localizeTime(const time_t& time) {
-    time_t local = tz.tzTime(time, UTC_TIME);
-    return String(hour(local)) + ":" + (minute(local) < 10 ? "0" : "") + String(minute(local));
+    //time_t local = tz.tzTime(time, UTC_TIME);
+    int h = hour(time, UTC_TIME);
+    int m = minute(time, UTC_TIME);
+    String s;
+    s.reserve(5);  // preallocate to avoid reallocations
+    s += (h < 10) ? '0' : char('0' + h / 10);
+    s += char('0' + h % 10);
+    s += ':';
+    s += (m < 10) ? '0' : char('0' + m / 10);
+    s += char('0' + m % 10);
+    return s;
 }

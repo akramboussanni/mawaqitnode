@@ -4,17 +4,17 @@
 #include <Arduino.h>
 
 typedef struct prayerTimes {
-    String fajr;
-    String dhuhr;
-    String asr;
-    String maghreb;
-    String isha;
-    String shuruq;
+    String fajr    = "";
+    String dhuhr   = "";
+    String asr     = "";
+    String maghreb = "";
+    String isha    = "";
+    String shuruq  = "";
 } prayerTimes;
 
 
 void initMawaqit();
-prayerTimes* getPrayerTimes();
+prayerTimes getPrayerTimes();
 bool isPrayerTime(String current, const prayerTimes& times);
 
 #endif

@@ -9,7 +9,6 @@ extern Timezone tz;
 void initTime();
 bool isMidnight();
 String getTime();
-String getFullTime();
 String getTimezone();
 time_t parseIso8601(const String& iso);
 String localizeTime(const time_t& time);

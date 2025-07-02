@@ -21,12 +21,19 @@ void initDisplay() {
 void showPrayerTimes(const prayerTimes& times, String currentTime) {
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.printf("Fajr:    %s\n", times.fajr.c_str());
-  display.printf("Shuruq:  %s\n", times.shuruq.c_str());
-  display.printf("Dhuhr:   %s\n", times.dhuhr.c_str());
-  display.printf("Asr:     %s\n", times.asr.c_str());
-  display.printf("Maghreb: %s\n", times.maghreb.c_str());
-  display.printf("Isha:    %s\n", times.isha.c_str());
+
+  display.print("Fajr:    ");
+  display.println(times.fajr);
+  display.print("Shuruq:  ");
+  display.println(times.shuruq);
+  display.print("Dhuhr:   ");
+  display.println(times.dhuhr);
+  display.print("Asr:     ");
+  display.println(times.asr);
+  display.print("Maghreb: ");
+  display.println(times.maghreb);
+  display.print("Isha:    ");
+  display.println(times.isha);
 
   // Show current time at bottom (assume 64px height, 8px text size)
   display.setCursor(0, SCREEN_HEIGHT - 8);
@@ -45,18 +52,37 @@ void showAlarm(String timeStr) {
   uint16_t w, h;
   display.getTextBounds(timeStr.c_str(), 0, 0, &x1, &y1, &w, &h);
 
+  const char* line1 = "Prayer";
+  const char* line2 = "Time";
+
+  display.setTextSize(2);
+
+  int16_t x2, y2;
+  uint16_t w2, h2;
+  display.getTextBounds(line1, 0, 0, &x2, &y2, &w2, &h2);
+
+  int16_t x3, y3;
+  uint16_t w3, h3;
+  display.getTextBounds(line2, 0, 0, &x3, &y3, &w3, &h3);
+
+  uint16_t spacing = 4;
+  uint16_t totalHeight = h + spacing + h2 + h3 + spacing;
+
+  int16_t yStart = (SCREEN_HEIGHT - totalHeight) / 2;
+
+  display.setTextSize(1);
   int16_t xCentered = (SCREEN_WIDTH - w) / 2;
-  display.setCursor(xCentered, 0);
+  display.setCursor(xCentered, yStart);
   display.print(timeStr.c_str());
 
-  const char* msg = "Prayer Time";
-  display.setTextSize(3);
-  display.getTextBounds(msg, 0, 0, &x1, &y1, &w, &h);
-  xCentered = (SCREEN_WIDTH - w) / 2;
-  int16_t yPos = h + 10; 
+  xCentered = (SCREEN_WIDTH - w2) / 2;
+  display.setTextSize(2);
+  display.setCursor(xCentered, yStart + h + spacing);
+  display.print(line1);
 
-  display.setCursor(xCentered, yPos);
-  display.print(msg);
+  xCentered = (SCREEN_WIDTH - w3) / 2;
+  display.setCursor(xCentered, yStart + h + spacing + h2);
+  display.print(line2);
 
   display.display();
 }

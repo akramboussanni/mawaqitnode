@@ -12,7 +12,6 @@ void connect();
 void hourly();
 void minutely();
 
-prayerTimes* times;
 void setup() {
   Serial.begin(115200);
   delay(1000);
@@ -24,11 +23,7 @@ void setup() {
   initDisplay();
   initSpeaker();
 
-  times = getPrayerTimes();
-  Serial.println("just fetched, checking now");
-  Serial.printf("PrayerTimes fetched:\n fajr: %p '%s'\n shuruq: %p '%s'\n dhuhr: %p '%s'\n",
-              times->fajr, times->fajr, times->shuruq, times->shuruq, times->dhuhr, times->dhuhr);
-  hourly();
+  prayerTimes times = getPrayerTimes();
   minutely();
 }
 
@@ -36,23 +31,18 @@ void loop() {
   events();
 }
 
-//checks for new times
-void hourly() {
-  if (isMidnight()) {
-    times = getPrayerTimes();
-  }
-  setEvent(hourly, now() + 3600);
-}
 
 //alarm feature
 void minutely() {
   String time = getTime();
+  prayerTimes times = getPrayerTimes();
+
   Serial.println(time);
-  if (isPrayerTime(time, *times)) {
+  if (isPrayerTime(time, times)) {
     showAlarm(time);
     playSound();
   } else {
-    showPrayerTimes(*times, time);
+    showPrayerTimes(times, time);
   }
   setEvent(minutely, now() + 60);
 }
