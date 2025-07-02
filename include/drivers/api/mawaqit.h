@@ -1,30 +1,20 @@
-#ifndef PRAYERTIMES_H
-#define PRAYERTIMES_H
+#ifndef MAWAQIT_H
+#define MAWAQIT_H
 
-#include <drivers/api/apiclient.h>
 #include <Arduino.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+static const int prayerTimeSize = 6;
 
 typedef struct prayerTimes {
-    char fajr[16];
-    char dhuhr[16];
-    char asr[16];
-    char maghreb[16];
-    char isha[16];
-    char shuruq[16];
+    char fajr[prayerTimeSize];
+    char dhuhr[prayerTimeSize];
+    char asr[prayerTimeSize];
+    char maghreb[prayerTimeSize];
+    char isha[prayerTimeSize];
+    char shuruq[prayerTimeSize];
 } prayerTimes;
 
-extern ApiClient& api;
-extern char url[128];
-
-void init();
-prayerTimes getTimes();
-
-#ifdef __cplusplus
-}
-#endif
+void initMawaqit();
+prayerTimes getPrayerTimes();
 
 #endif

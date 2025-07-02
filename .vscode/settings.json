@@ -3,6 +3,9 @@
         "istream": "cpp",
         "array": "cpp",
         "tuple": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "chrono": "cpp",
+        "ctime": "cpp",
+        "*.example": "cpp"
     }
 }

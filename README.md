@@ -6,7 +6,7 @@ Embedded MAWAQIT app for microcontrollers.
 - Config + modular code (disable piezo, oled, etc. before build)
 
 ## Installation
-Project is built using PlatformIO. Modify `config.template.cpp` to fit your setup, then rename it to `config.cpp`.
+Project is built using PlatformIO. Modify `config.cpp.example` to fit your setup, then rename it to `config.cpp`.
 
 ## Developers
 If you would like to modify this for your own components, the screen/sound drivers can be modified @ `lib/drivers/hardware`.

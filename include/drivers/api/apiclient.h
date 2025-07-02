@@ -1,3 +1,6 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+
 class ApiClient {
 public:
     static ApiClient& getInstance();
